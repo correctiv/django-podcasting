@@ -48,7 +48,8 @@ class ShowAddForm(BaseShowForm):
 
     def clean_publish(self):
         if self.cleaned_data["publish"]:
-            self.instance.published = now()
+            if not self.instance.published:
+                self.instance.published = now()
 
 
 class ShowChangeForm(BaseShowForm):
@@ -65,7 +66,8 @@ class ShowChangeForm(BaseShowForm):
         if self.instance.published:
             return
         if self.cleaned_data["publish"]:
-            self.instance.published = now()
+            if not self.instance.published:
+                self.instance.published = now()
 
 
 class BaseEpisodeForm(forms.ModelForm):
@@ -93,6 +95,7 @@ class BaseEpisodeForm(forms.ModelForm):
             "description",
             "tracklist",
             "hours", "minutes", "seconds",
+            "published",
             "publish",
         ]
         if "taggit" in settings.INSTALLED_APPS:
@@ -126,7 +129,8 @@ class BaseEpisodeForm(forms.ModelForm):
                   "Uncheck, save this episode, and add an encoslure before publishing."))
         elif not self.instance.is_show_published:
             raise forms.ValidationError(_("The show for this episode is not yet published"))
-        self.instance.published = now()
+        if not self.instance.published:
+            self.instance.published = now()
 
 
 class EpisodeChangeForm(BaseEpisodeForm):
@@ -249,7 +253,8 @@ class AdminShowForm(forms.ModelForm):
         if self.instance.published:
             return
         if self.cleaned_data["publish"]:
-            self.instance.published = now()
+            if not self.instance.published:
+                self.instance.published = now()
 
 
 class AdminEpisodeForm(forms.ModelForm):
@@ -274,6 +279,7 @@ class AdminEpisodeForm(forms.ModelForm):
             "description",
             "tracklist",
             "hours", "minutes", "seconds",
+            "published",
             "publish",
             "keywords",
             "explicit",
@@ -293,7 +299,8 @@ class AdminEpisodeForm(forms.ModelForm):
                   "Uncheck, save this episode, and add an encoslure before publishing."))
         elif not self.instance.is_show_published:
             raise forms.ValidationError(_("The show for this episode is not yet published"))
-        self.instance.published = now()
+        if not self.instance.published:
+            self.instance.published = now()
 
     def clean_publish(self):
         # clean_publish is called twice, skip the first time when instance is unset
