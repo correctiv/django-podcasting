@@ -179,7 +179,7 @@ class EnclosureForm(forms.ModelForm):
         model = Enclosure
         fields = [
             "episodes",
-            "url",
+            "media_file",
             "mime",
             "size",
             "bitrate",

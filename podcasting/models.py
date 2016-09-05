@@ -458,15 +458,17 @@ class Enclosure(models.Model):
 
     episodes = models.ManyToManyField(Episode, verbose_name=_("Episodes"))
 
-    url = models.URLField(
-        _("url"),
-        help_text=_("""URL of the media file. <br /> It is <strong>very</strong>
-            important to remember that for episode artwork to display in iTunes, image must be
-            <a href="http://answers.yahoo.com/question/index?qid=20080501164348AAjvBvQ">
-            saved to file's <strong>metadata</strong></a> before enclosure uploading!<br /><br />
-            For best results, choose an attractive, original, and square JPEG (.jpg) or PNG (.png)
-            image at a size of 1400x1400 pixels. The image will be
-            scaled down to 50x50 pixels at smallest in iTunes."""))
+    # url = models.URLField(
+    #     _("url"),
+    #     help_text=_("""URL of the media file. <br /> It is <strong>very</strong>
+    #         important to remember that for episode artwork to display in iTunes, image must be
+    #         <a href="http://answers.yahoo.com/question/index?qid=20080501164348AAjvBvQ">
+    #         saved to file's <strong>metadata</strong></a> before enclosure uploading!<br /><br />
+    #         For best results, choose an attractive, original, and square JPEG (.jpg) or PNG (.png)
+    #         image at a size of 1400x1400 pixels. The image will be
+    #         scaled down to 50x50 pixels at smallest in iTunes."""))
+
+    media_file = models.FileField(upload_to='podcasts/%Y/%m/')
 
     size = models.PositiveIntegerField(
         _("size"), help_text=_("The length attribute is the file size in bytes. "
@@ -490,12 +492,16 @@ class Enclosure(models.Model):
         help_text=_("Duration of the audio file, in seconds (always as integer)."))
 
     class Meta:
-        ordering = ("url", "mime",)
+        ordering = ("media_file", "mime",)
         verbose_name = _("Enclosure")
         verbose_name_plural = _("Enclosures")
 
     def __str__(self):
         return "{0} - {1}".format(self.url, self.mime)
+
+    @property
+    def url(self):
+        return self.media_file.url
 
 
 @python_2_unicode_compatible

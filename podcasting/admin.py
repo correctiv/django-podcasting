@@ -73,7 +73,8 @@ class EpisodeAdmin(admin.ModelAdmin):
 class EnclosureAdmin(admin.ModelAdmin):
     form = AdminEnclosureForm
 
-    list_display = ("mime", "url")
+    exclude = ("url",)
+    list_display = ("mime", "media_file")
     list_filter = ("mime", "episodes")
 
 
