@@ -1,6 +1,18 @@
 Django Podcasting
 =================
 
+correctiv-fork
+--------------
+
+this fork provides a cms app and some fixes to fit into the correctiv.org ecosystem.
+
+one main improvement is to store enclosure media files direct into the `Enclosure` model
+
+See documentation of the original maintainers below:
+
+Django Podcasting
+=================
+
 Django Podcasting is a reusable application which provides audio
 podcasting functionality for websites running on the Django Web
 framework.
