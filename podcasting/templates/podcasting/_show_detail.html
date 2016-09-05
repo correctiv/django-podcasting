@@ -1,13 +1,12 @@
-{% load i18n %}
+{% load i18n thumbnail %}
 
 {% if show %}
     <div class="podcast-show">
         <h2>{{ show.title }}</h2>
-        <a href="{{ show.img_show_lg.url }}" rel="facebox">
-            <img src="{{ show.img_show_sm.url }}" alt="" class="left" />
+        <a href="{{ show.original_image.url }}" rel="facebox">
+            <img src="{% thumbnail show.original_image 150x150 %}" alt="{{ show.title }}" class="left" />
         </a>
         <h4>{{ show.subtitle }}</h4>
-        <p><a href="{{ show.link }}">{{ show.link }}</a></p>
         <div class="show-description">{{ show.description }}</div>
     </div>
     {% with show.episode_set.published as episode_list %}

@@ -1,17 +1,15 @@
-{% load i18n %}
+{% load i18n thumbnail %}
 
 <div class="podcast-show-list">
-    <h2>{% trans "Podcast Shows" %}</h2>
-
     {% for show in show_list %}
         <div class="podcast-show">
             <h3><a href="{{ show.get_absolute_url }}">{{ show.title }}</a></h3>
-            <a href="{{ show.img_show_lg.url }}" rel="facebox">
-                <img src="{{ show.img_show_sm.url }}" alt="{{ show.title }}" class="left" />
+            <a href="{{ show.original_image.url }}" rel="facebox">
+                <img src="{% thumbnail show.original_image 150x150 %}" alt="{{ show.title }}" class="left" />
             </a>
             <h4>{{ show.subtitle }}</h4>
-            <p><a href="{{ show.link }}">{{ show.link }}</a></p>
-            <div class="show-description">{{ show.description }}</div>
+            <p>{{ show.description }}</p>
+            <p><a href="{{ show.get_absolute_url }}" class="arrow-link -primary">Zur Episodenliste</a></p>
         </div>
     {% empty %}
         <h2>{% trans "There are no shows." %}</h2>
