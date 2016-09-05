@@ -7,7 +7,8 @@ from django.core.urlresolvers import reverse
 from django.utils.feedgenerator import rfc2822_date, Rss201rev2Feed, Atom1Feed
 from django.shortcuts import get_object_or_404
 
-from django.contrib.sites.models import get_current_site
+from django.contrib.sites.shortcuts import get_current_site
+from django.contrib.sites.models import Site
 from django.contrib.syndication.views import Feed
 from django.views.generic.base import RedirectView
 
@@ -49,12 +50,15 @@ class ITunesElements(object):
 
         show = self.feed["show"]
 
+        # FIXME
+        base_url = Site.objects.get_current().domain
+
         if show.original_image:
             if imagekit:
                 itunes_sm_url = show.img_itunes_sm.url
                 itunes_lg_url = show.img_itunes_lg.url
             elif easy_thumbnails:
-                aliases = settings.THUMBNAIL_ALIASES["podcasting.Show.original_image"]
+                aliases = settings2.PODCASTING_THUMBNAIL_ALIASES["podcasting.Show.original_image"]
                 thumbnailer = easy_thumbnails.files.get_thumbnailer(show.original_image)
                 try:
                     itunes_sm_url = thumbnailer.get_thumbnail(aliases["itunes_sm"]).url
@@ -73,6 +77,11 @@ class ITunesElements(object):
                 itunes_sm_url = show.original_image.url
                 itunes_lg_url = show.original_image.url
             if itunes_sm_url and itunes_lg_url:
+                # FIXME
+                # make urls absolute
+                itunes_sm_url = 'https://{}{}'.format(base_url, itunes_sm_url)
+                itunes_lg_url = 'https://{}{}'.format(base_url, itunes_lg_url)
+
                 handler.addQuickElement("itunes:image", attrs={"href": itunes_lg_url})
                 handler.startElement("image", {})
                 handler.addQuickElement("url", itunes_sm_url)
@@ -116,7 +125,7 @@ class ITunesElements(object):
                 itunes_sm_url = episode.img_itunes_sm.url
                 itunes_lg_url = episode.img_itunes_lg.url
             elif easy_thumbnails:
-                aliases = settings.THUMBNAIL_ALIASES["podcasting.Episode.original_image"]
+                aliases = settings2.PODCASTING_THUMBNAIL_ALIASES["podcasting.Episode.original_image"]
                 thumbnailer = easy_thumbnails.files.get_thumbnailer(episode.original_image)
                 try:
                     itunes_sm_url = thumbnailer.get_thumbnail(aliases["itunes_sm"]).url
@@ -190,7 +199,7 @@ class ShowFeed(Feed):
         return show.link
 
     def categories(self, show):
-        return ("Music",)
+        return settings2.PODCASTING_CATEGORIES
 
     def feed_copyright(self, show):
         if licenses:
