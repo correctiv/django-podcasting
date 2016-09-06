@@ -4,7 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class PodcastsViewApp(CMSApp):
-    name = _('Podcasts View pages')
+    name = _('Podcasts')
 
     def get_urls(self, page=None, language=None, **kwargs):
         return ['podcasting.urls']
