@@ -7,6 +7,7 @@
         </a>
         <h4>{{ show.subtitle }}</h4>
         <div class="show-description">{{ show.description }}</div>
+        <a href="{% url 'podcasts_show_feed_rss' show_slug=show.slug mime_type='mp3' %}" class="feed-url arrow-link">RSS Feed zu diesem Podcast</a>
     </div>
     {% with show.episode_set.published as episode_list %}
         {% include "podcasting/_episode_list.html" %}
