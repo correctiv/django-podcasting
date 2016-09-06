@@ -6,10 +6,11 @@
             <hr>
             <div class="podcast-episode mod">
                 <h2>{{ episode.title }}</h2>
-                <div class="meta">
-                    <span class="date">
-                        {{ episode.published|date:"F j, Y" }}
-                    </span>
+                <h3>{{ episode.subtitle }}</h3>
+                <em class="date">
+                    {{ episode.published }}
+                </em>
+                <div class="meta well">
                     {% for enclosure in episode.enclosure_set.all %}
                         {% if enclosure.mime == 'mp3' %}
                             <span class="sep">
@@ -40,9 +41,8 @@
                             height="{{ episode.img_episode_sm.height }}"
                             class="left" />
                     </a>
-                    <h4>{{ episode.subtitle }}</h4>
                     {% if episode.description %}
-                        <p><a href="{{ episode.get_absolute_url }}" class="arrow-link -primary" rel="facebox">zur Episode</a></p>
+                        <p><a href="{{ episode.get_absolute_url }}" class="arrow-link" rel="facebox">mehr</a></p>
                     {% endif %}
                 </div>
             </div>

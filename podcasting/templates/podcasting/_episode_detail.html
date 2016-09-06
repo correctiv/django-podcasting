@@ -2,11 +2,31 @@
 
 {% if episode %}
     <div class="podcast-episode mod">
-        <h2>{{ episode.title }}</h2>
-        <div class="meta">
-            <span class="date">
-                {{ episode.published|date:"F j, Y" }}
-            </span>
+        <h2>{{ episode.subtitle }}</h2>
+        <div class="episode-details">
+            <em class="date">
+                {{ episode.published }}
+            </em>
+            <a href="{{ episode.img_episode_lg.url }}" rel="facebox" class="episode-thumb">
+                <img src="{{ episode.img_episode_sm.url }}"
+                    alt="{{ episode.img_episode_sm.name }}"
+                    width="{{ episode.img_episode_sm.width }}"
+                    height="{{ episode.img_episode_sm.height }}"
+                    class="left" />
+            </a>
+
+            {% if episode.description %}
+                <p class="episode-description">{{ episode.description }}</p>
+            {% endif %}
+
+            {% if episode.tracklist %}
+                <div class="tracklist">
+                    <h3>{% trans "Tracklist" %}</h3>
+                    {{ episode.tracklist|linenumbers|linebreaksbr }}
+                </div>
+            {% endif %}
+        </div>
+        <div class="meta well">
             {% for enclosure in episode.enclosure_set.all %}
                 {% if enclosure.mime == 'mp3' %}
                     <span class="sep">
@@ -18,27 +38,7 @@
                 {% endif %}
             {% endfor %}
         </div>
-        <div class="episode-details">
-            <a href="{{ episode.img_episode_lg.url }}" rel="facebox" class="episode-thumb">
-                <img src="{{ episode.img_episode_sm.url }}"
-                    alt="{{ episode.img_episode_sm.name }}"
-                    width="{{ episode.img_episode_sm.width }}"
-                    height="{{ episode.img_episode_sm.height }}"
-                    class="left" />
-            </a>
-            <h4>{{ episode.subtitle }}</h4>
-
-            {% if episode.description %}
-                <div class="episode-description">{{ episode.description }}</div>
-            {% endif %}
-
-            {% if episode.tracklist %}
-                <div class="tracklist">
-                    <h3>{% trans "Tracklist" %}</h3>
-                    {{ episode.tracklist|linenumbers|linebreaksbr }}
-                </div>
-            {% endif %}
-        </div>
+        <a href="{{ episode.shows.first.get_absolute_url }}" class="arrow-link -backwards">zurück zum Podcast</a>
     </div>
 {% else %}
     <h2 class="coming-soon">{% trans "Coming soon..." %}</h2>

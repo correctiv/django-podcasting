@@ -1,8 +1,18 @@
 {% extends "podcasting/podcasting_base.html" %}
 
+{% load cms_tags %}
+
 {% block head_title %}{{ object.title }}{% endblock %}
 
 {% block body_class %}page-episode-detail{% endblock %}
+
+{% block podcasting_title %}
+{{ object.shows.first.title }} - {{ object.title }}
+{% endblock podcasting_title %}
+
+{% block podcasting_sidebar %}
+{% static_placeholder object.shows.first.slug|add:"_sidebar" %}
+{% endblock podcasting_sidebar %}
 
 {% block content %}
     {% include "podcasting/_episode_detail.html" %}
