@@ -50,6 +50,7 @@ class ShowAddForm(BaseShowForm):
         if self.cleaned_data["publish"]:
             if not self.instance.published:
                 self.instance.published = now()
+        return self.cleaned_data["publish"]
 
 
 class ShowChangeForm(BaseShowForm):
@@ -63,11 +64,13 @@ class ShowChangeForm(BaseShowForm):
         if not self.instance.pk:
             return
         # do nothing if already published
-        if self.instance.published:
-            return
+        # CHANGED, because `instance.published` is now editable
+        # if self.instance.published:
+        #     return
         if self.cleaned_data["publish"]:
             if not self.instance.published:
                 self.instance.published = now()
+        return self.cleaned_data["publish"]
 
 
 class BaseEpisodeForm(forms.ModelForm):
@@ -144,10 +147,12 @@ class EpisodeChangeForm(BaseEpisodeForm):
         if not self.instance.pk:
             return
         # do nothing if already published
-        if self.instance.published:
-            return
+        # CHANGED, because `instance.published` is now editable
+        # if self.instance.published:
+        #     return
         if self.cleaned_data["publish"]:
             self.validate_published()
+        return self.cleaned_data["publish"]
 
 
 class EpisodeITunesChangeForm(EpisodeChangeForm):
@@ -165,6 +170,7 @@ class EpisodeAddForm(BaseEpisodeForm):
     def clean_publish(self):
         if self.cleaned_data["publish"]:
             self.validate_published()
+        return self.cleaned_data["publish"]
 
 
 class EpisodeITunesAddForm(EpisodeAddForm):
@@ -250,11 +256,13 @@ class AdminShowForm(forms.ModelForm):
         if not self.instance.pk:
             return
         # do nothing if already published
-        if self.instance.published:
-            return
+        # CHANGED, because `instance.published` is now editable
+        # if self.instance.published:
+        #     return
         if self.cleaned_data["publish"]:
             if not self.instance.published:
                 self.instance.published = now()
+        return self.cleaned_data["publish"]
 
 
 class AdminEpisodeForm(forms.ModelForm):
@@ -307,10 +315,12 @@ class AdminEpisodeForm(forms.ModelForm):
         if not self.instance.pk:
             return
         # do nothing if already published
-        if self.instance.published:
-            return
+        # CHANGED, because `instance.published` is now editable
+        # if self.instance.published:
+        #     return
         if self.cleaned_data["publish"]:
             self.validate_published()
+        return self.cleaned_data["publish"]
 
     def save(self):
         episode = super(AdminEpisodeForm, self).save(commit=False)
