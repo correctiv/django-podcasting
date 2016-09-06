@@ -25,4 +25,4 @@ class PodcastingAppConf(AppConf):
             }
         }
     }
-    CATEGORIES = ("Podcast",)
+    CATEGORIES = ("News & Politics",)
