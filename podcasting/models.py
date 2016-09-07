@@ -221,6 +221,9 @@ class Show(models.Model):
             See <a href="http://code.google.com/p/django-podcast/">documentation</a>
             for more. <a href="http://www.feedburner.com/fb/a/ping">Manually ping</a>"""))
 
+    itunes_url = models.URLField(_('Itunes url'), blank=True, null=True)
+    spotify_url = models.URLField(_('Spotify url'), blank=True, null=True)
+
     # iTunes specific fields
     explicit = models.PositiveSmallIntegerField(
         _("explicit"), default=1, choices=EXPLICIT_CHOICES,

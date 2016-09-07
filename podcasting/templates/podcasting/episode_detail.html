@@ -11,7 +11,8 @@
 {% endblock podcasting_title %}
 
 {% block podcasting_sidebar %}
-{% static_placeholder object.shows.first.slug|add:"_sidebar" %}
+  {% include "podcasting/_show_abo_urls.html" with show=object.shows.first %}
+  {% static_placeholder object.shows.first.slug|add:"_sidebar" %}
 {% endblock podcasting_sidebar %}
 
 {% block content %}

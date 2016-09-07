@@ -241,6 +241,7 @@ class AdminShowForm(forms.ModelForm):
             "feedburner", "itunes",
             "keywords", "organization", "license",
             "explicit", "link",
+            "itunes_url", "spotify_url",
             "on_itunes",
             "publish",
         ]

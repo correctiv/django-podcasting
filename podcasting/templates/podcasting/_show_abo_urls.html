@@ -1,0 +1,16 @@
+<header class="page__section-header ">
+  <h3 class="page__section-headline">
+    Podcast Abonnieren
+  </h3>
+</header>
+<section>
+  {% if show.itunes_url %}
+  <a href="{{ show.itunes_url }}">Apple iTunes</a><br>
+  {% endif %}
+  {% if show.spotify_url %}
+  <a href="{{ show.spotify_url }}">Spotify</a><br>
+  {% endif %}
+  <a href="{% url 'podcasts_show_feed_rss' show_slug=show.slug mime_type='mp3' %}">RSS Feed</a><br>
+  <a href="{% url 'podcasts_show_feed_atom' show_slug=show.slug mime_type='mp3' %}">Atom Feed</a>
+</section>
+
