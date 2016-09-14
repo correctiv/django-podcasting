@@ -340,6 +340,9 @@ class Episode(models.Model):
             saved to file's <strong>metadata</strong></a> before
             enclosure uploading!"""))
 
+    youtube_url = models.URLField(_('Youtube URL'), blank=True, null=True,
+                                  help_text=_('Insert youtube embed url here, NOT regular url'))
+
     if ImageSpecField:
         admin_thumb_sm = ImageSpecField(source="original_image",
                                         processors=[ResizeToFill(50, 50)],

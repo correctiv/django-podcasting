@@ -283,6 +283,7 @@ class AdminEpisodeForm(forms.ModelForm):
         fields = [
             "shows",
             "original_image",
+            "youtube_url",
             "author_text",
             "title", "subtitle",
             "description",

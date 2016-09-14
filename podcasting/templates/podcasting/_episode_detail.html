@@ -26,6 +26,13 @@
                 </div>
             {% endif %}
         </div>
+
+        {% if episode.youtube_url %}
+        <div class="episode-video-embed">
+          <iframe width="560" height="315" src="{{ episode.youtube_url }}?showinfo=0" frameborder="0" allowfullscreen></iframe>
+        </div>
+        {% endif %}
+
         <div class="meta well">
             {% for enclosure in episode.enclosure_set.all %}
                 {% if enclosure.mime == 'mp3' %}
