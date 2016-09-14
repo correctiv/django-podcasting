@@ -4,7 +4,7 @@
     {% for show in show_list %}
         <div class="podcast-show">
             <h3><a href="{{ show.get_absolute_url }}">{{ show.title }}</a></h3>
-            <a href="{{ show.original_image.url }}" rel="facebox">
+            <a href="{{ show.get_absolute_url }}" rel="facebox">
                 <img src="{% thumbnail show.original_image 150x150 %}" alt="{{ show.title }}" class="left" />
             </a>
             <h4>{{ show.subtitle }}</h4>
