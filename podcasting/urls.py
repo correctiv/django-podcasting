@@ -1,10 +1,8 @@
-from django.conf.urls import patterns, url, include
+from django.conf.urls import url, include
 from podcasting.views import ShowListView, ShowDetailView, EpisodeListView, EpisodeDetailView
 
 
-urlpatterns = patterns(
-    "",
-
+urlpatterns = [
     url(r"^$", ShowListView.as_view(),
         name="podcasting_show_list"),
     url(r"^feeds/", include('podcasting.urls_feeds')),
@@ -14,4 +12,4 @@ urlpatterns = patterns(
         name="podcasting_episode_list"),
     url(r"^(?P<show_slug>[-\w]+)/(?P<slug>[-\w]+)/$", EpisodeDetailView.as_view(),
         name="podcasting_episode_detail"),
-)
+]
