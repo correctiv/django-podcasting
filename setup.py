@@ -24,7 +24,7 @@ setup(
     install_requires=[
         "django-appconf>=1.0.1",
         "django-autoslug>=1.8.0",
-        "django-embed-video==1.1.0",
+        "django-embed-video",
     ],
     tests_require=[
         "Django>=1.6",
