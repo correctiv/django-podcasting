@@ -12,7 +12,7 @@ class ShowListView(ListView):
 
     def get_queryset(self):
         site = get_current_site(self.request)
-        return Show.objects.onsite(site=site)
+        return Show.objects.onsite(site=site).exclude(published=None)
 
 
 class ShowDetailView(DetailView):
