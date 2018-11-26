@@ -5,7 +5,7 @@ from podcasting.views import ShowListView, ShowDetailView, EpisodeListView, Epis
 urlpatterns = [
     url(r"^$", ShowListView.as_view(),
         name="podcasting_show_list"),
-    url(r"^feeds-correctiv-legacy/", include('podcasting.urls_feeds')),
+    url(r"^feeds-legacy/", include('podcasting.urls_feeds')),
     url(r"^(?P<slug>[-\w]+)/$", ShowDetailView.as_view(),
         name="podcasting_show_detail"),
     url(r"^(?P<show_slug>[-\w]+)/archive/$", EpisodeListView.as_view(),

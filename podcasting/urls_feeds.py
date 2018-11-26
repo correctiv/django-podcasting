@@ -9,13 +9,19 @@ MIMES = "|".join([enclosure[0] for enclosure in Enclosure.MIME_CHOICES])
 
 
 urlpatterns = [
+    # Wordpress wtf
+    url(r"^(?P<show_slug>[-\w]+)/(?P<mime_type>{mimes})/rss-legacy/$".format(mimes=MIMES),
+        RssShowFeed(), name="podcasts_show_feed_rss"),
+    url(r"^(?P<show_slug>[-\w]+)/(?P<mime_type>{mimes})/atom-legacy/$".format(mimes=MIMES),
+        AtomShowFeed(), name="podcasts_show_feed_atom"),
+
     # Episode list feed by show (RSS 2.0 and iTunes)
     url(r"^(?P<show_slug>[-\w]+)/(?P<mime_type>{mimes})/rss/$".format(mimes=MIMES),
-        RssShowFeed(), name="podcasts_show_feed_rss"),
+        RssShowFeed(), name="podcasts_show_feed_rss-deprecated"),
 
     # Episode list feed by show (Atom)
     url(r"^(?P<show_slug>[-\w]+)/(?P<mime_type>{mimes})/atom/$".format(mimes=MIMES),
-        AtomShowFeed(), name="podcasts_show_feed_atom"),
+        AtomShowFeed(), name="podcasts_show_feed_atom-deprecated"),
 
     # Episode list feed by show (Media RSS)
     # TODO upon request
